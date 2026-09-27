@@ -1,0 +1,248 @@
+:root {
+  --primary: #087fae;
+  --primary-dark: #225077;
+  --primary-light: #e8f5fc;
+  --ink: #263f57;
+  --muted: #607789;
+  --line: #e1edf4;
+  --bg: #f6fafd;
+  --green: #2d9e87;
+  font-family: 'Beiruti', sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+  font-family: 'Beiruti', sans-serif;
+}
+body {
+  margin: 0;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #9ad0ef;
+  outline-offset: 4px;
+}
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+button {
+  border: 0;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+h1 {
+  font-size: 34px;
+  font-weight: 750;
+  line-height: 1.6;
+  letter-spacing: -0.8px;
+}
+h2 {
+  font-size: 25px;
+  letter-spacing: -0.4px;
+}
+h3 {
+  font-size: 20px;
+}
+p {
+  line-height: 1.9;
+}
+.eyebrow {
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.pill {
+  display: inline-block;
+  font-size: 14px;
+  padding: 4px 11px;
+  background: #ffffff80;
+  color: #4c7d99;
+  border: 1px solid #dcecf6;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+.section-heading h2 {
+  font-size: 24px;
+}
+.section-heading p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.instructor {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 15px;
+  color: #567a8f;
+  margin-top: 12px;
+}
+.verified {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #eaf5fb;
+  color: #4d7d98;
+  font-size: 8px;
+  width: 12px;
+  height: 12px;
+}
+.progress-track {
+  height: 5px;
+  border-radius: 5px;
+  background: #edf2f5;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.progress-track span {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  padding: 11px 19px;
+  font-size: 17px;
+  font-weight: 600;
+  min-height: 43px;
+}
+.button:hover {
+  background: var(--primary-dark);
+}
+.button.secondary {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+.button.full {
+  width: 100%;
+}
+.notice {
+  background: #fff5de;
+  border: 1px solid #f0ddb1;
+  padding: 13px 18px;
+  border-radius: 8px;
+  color: #917744;
+  font-size: 17px;
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+.loading,
+.empty {
+  text-align: center;
+  padding: 65px 25px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  grid-column: 1/-1;
+}
+.empty p {
+  color: var(--muted);
+  margin: 12px 0 25px;
+  font-size: 18px;
+}
+.back-link {
+  display: inline-flex;
+  font-size: 16px;
+  gap: 8px;
+  color: #567a8f;
+  margin: 0 0 25px;
+}
+.muted {
+  font-size: 16px;
+  color: var(--muted);
+}
+.locked {
+  color: #567a8f;
+}
+.locked .lesson-symbol {
+  background: #eff3f6;
+  color: #567a8f;
+}
+@media (max-width: 1150px) {
+  h1 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 600px) {
+  .eyebrow {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 26px;
+  }
+  .pill {
+    font-size: 13px;
+    padding: 3px 7px;
+  }
+  .section-heading {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .section-heading h2 {
+    font-size: 22px;
+  }
+  .section-heading p {
+    font-size: 15px;
+  }
+  .button {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

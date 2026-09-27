@@ -1,0 +1,140 @@
+
+<section class="welcome-banner">
+  <div class="banner-copy">
+    <span class="pill">تعلّم اليوم، اصنع الفرق غدًا</span>
+    <h2>معرفة أعمق.<br />مستقبل أكثر إشراقًا.</h2>
+    <p>كل معلومة تتعلّمها اليوم، قد تغيّر حياة إنسان غدًا.</p>
+    <a href="#my-courses" class="banner-link">اكتشف دوراتك <span>←</span></a>
+  </div>
+  <div class="banner-art" aria-hidden="true">
+    <div class="orbit one"></div>
+    <div class="orbit two"></div>
+    <span class="art-cross">+</span>
+    <div class="book"><span>✦</span><i></i><i></i></div>
+    <div class="floating-card"><span>✓</span> خطوة نحو التميّز</div>
+    <span class="art-spark">✧</span>
+  </div>
+</section>
+@if (catalog.loading()) {
+  <div class="loading" role="status">جارٍ تجهيز دوراتك…</div>
+} @else if (catalog.error()) {
+  <div class="empty" role="alert">
+    <h2>تعذّر تحميل الدورات</h2>
+    <button class="button" (click)="catalog.retry()">حاول مرة أخرى</button>
+  </div>
+} @else {
+  <section class="stats">
+    <div class="stat">
+      <span class="stat-icon purple">▦</span>
+      <div>
+        <b>{{ catalog.courses().length }}</b
+        ><span>دوراتك التعليمية</span>
+      </div>
+    </div>
+    <div class="stat">
+      <span class="stat-icon mint">✓</span>
+      <div>
+        <b
+          >{{ completed() }} <small>/ {{ total() }}</small></b
+        ><span>دروس أكملتها</span>
+      </div>
+    </div>
+    <div class="stat">
+      <span class="stat-icon peach">◷</span>
+      <div>
+        <b data-testid="watched-time">
+          @if (store.watchedTime().minutes > 0) {
+            {{ store.watchedTime().minutes }} <small>دقيقة</small>
+          }
+          @if (store.watchedTime().seconds > 0 || store.watchedTime().minutes === 0) {
+            {{ store.watchedTime().seconds }} <small>ثانية</small>
+          }</b
+        ><span>من التعلّم المستمر</span>
+      </div>
+    </div>
+  </section>
+  @if (continuing(); as item) {
+    <section class="continue-card">
+      <span class="continue-icon">▷</span>
+      <div>
+        <span class="eyebrow">لنُكمل ما بدأناه</span>
+        <h3>{{ item.lesson.title }}</h3>
+        <p>{{ item.course.title }} · {{ Math.round(item.progress.position) }} ثانية شاهدتها</p>
+      </div>
+      <a class="button" [routerLink]="['/courses', item.course.id, 'lessons', item.lesson.id]"
+        >متابعة المشاهدة <span>←</span></a
+      >
+    </section>
+  }
+  <section id="my-courses">
+    <div class="section-heading">
+      <div>
+        <h2>
+          دوراتي التعليمية <span class="count">{{ catalog.courses().length }}</span>
+        </h2>
+        <p>استثمر في نفسك، درسًا بعد درس.</p>
+      </div>
+      <label class="search"
+        ><span>⌕</span
+        ><input
+          type="search"
+          placeholder="ابحث عن دورة…"
+          aria-label="البحث عن دورة"
+          [value]="query()"
+          (input)="search($event)"
+      /></label>
+    </div>
+    <div class="filters" aria-label="تصفية الدورات">
+      @for (filter of filters; track filter.id) {
+        <button [class.selected]="selected() === filter.id" (click)="selected.set(filter.id)">
+          {{ filter.label }}
+        </button>
+      }
+    </div>
+    <div class="course-grid">
+      @for (course of filtered(); track course.id) {
+        <article class="course-card">
+          <a class="course-image" [routerLink]="['/courses', course.id]"
+            ><img [src]="course.thumbnail" [alt]="course.category" /><span class="image-badge">{{
+              course.category
+            }}</span
+            ><span class="image-play">▷</span></a
+          >
+          <div class="course-content">
+            <div class="course-meta">
+              <span>◫ {{ course.sections.length }} أقسام</span
+              ><span>▷ {{ lessonsOf(course).length }} دروس</span
+              ><span>◷ {{ Math.ceil(duration(course) / 60) }} دقائق</span>
+            </div>
+            <a class="course-title" [routerLink]="['/courses', course.id]"
+              ><h3>{{ course.title }}</h3></a
+            >
+            <p class="instructor">
+              <span class="teacher-avatar">{{
+                course.instructor.includes('سارة') ? 'س' : 'أ'
+              }}</span
+              >{{ course.instructor }}<span class="verified">✓</span>
+            </p>
+            <div class="progress-label">
+              <span>تقدمك في الدورة</span><b>{{ store.percent(course) }}٪</b>
+            </div>
+            <div class="progress-track">
+              <span [style.width.%]="store.percent(course)"></span>
+            </div>
+            <a class="course-action" [routerLink]="['/courses', course.id]"
+              >{{ store.percent(course) ? 'متابعة التعلّم' : 'ابدأ رحلتك الآن' }} <span>←</span></a
+            >
+          </div>
+        </article>
+      } @empty {
+        <div class="empty">
+          <h3>لا توجد دورات هنا بعد</h3>
+          <p>جرّب كلمة بحث أو تصفية أخرى.</p>
+          <button class="button secondary" (click)="query.set(''); selected.set('all')">
+            عرض جميع الدورات
+          </button>
+        </div>
+      }
+    </div>
+  </section>
+}

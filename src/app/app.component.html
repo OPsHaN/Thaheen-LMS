@@ -1,0 +1,20 @@
+<div class="app-body">
+  <header class="topbar">
+    <nav class="navbar" aria-label="التنقل الرئيسي">
+      <a routerLink="/courses" class="brand" aria-label="ذهين - دوراتي">
+        <img class="logo" style=" height: 100px;" src="../assets/images/Thaheen.jpg"/>
+      </a>
+      <div class="student-profile">
+          <span class="avatar" aria-hidden="true">م</span>
+        <span class="student-name">مصطفى رمضان</span>
+      </div>
+    </nav>
+  </header>
+  <main>
+    @if (store.warning()) {
+      <div class="notice" role="alert">{{ store.warning() }}</div>
+    }
+    <router-outlet />
+  </main>
+  <footer><span>جميع الحقوق محفوظة ذهين © ٢٠٢٦</span></footer>
+</div>

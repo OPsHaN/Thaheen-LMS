@@ -1,0 +1,98 @@
+<a routerLink="/courses" class="back-link">→ العودة إلى دوراتي</a>
+@if (catalog.loading()) {
+  <div class="loading" role="status">جارٍ تحميل الدورة…</div>
+} @else if (catalog.error()) {
+  <div class="empty" role="alert">
+    <h2>تعذّر تحميل الدورة</h2>
+    <button class="button" (click)="catalog.retry()">إعادة المحاولة</button>
+  </div>
+} @else if (course(); as c) {
+  @if (query()?.get('locked')) {
+    <div class="notice" role="status">
+      هذا الدرس لم يُفتح بعد. أكمل الدرس السابق أولًا، ثم تابع رحلتك.
+    </div>
+  }
+  <section class="detail-hero">
+    <div>
+      <span class="pill purple-pill">{{ c.category }}</span>
+      <h1>{{ c.title }}</h1>
+      <p>{{ c.description }}</p>
+      <p class="instructor">{{ c.instructor }} <span class="verified">✓</span></p>
+      <div class="hero-metadata">
+        {{ lessonsOf(c).length }} دروس <span>•</span> {{ c.sections.length }} أقسام
+        <span>•</span> تعلّم بالوتيرة التي تناسبك
+      </div>
+    </div>
+    <img [src]="c.thumbnail" [alt]="c.category" />
+  </section>
+  <div class="detail-layout">
+    <section>
+      <div class="section-heading">
+        <h2>محتوى الدورة</h2>
+        <span class="muted">خطوة بخطوة نحو الإتقان</span>
+      </div>
+      @for (section of c.sections; track section.id; let index = $index) {
+        <div class="lesson-section">
+          <h3>
+            <span class="section-number">0{{ index + 1 }}</span
+            >{{ section.title }}<small>{{ section.lessons.length }} دروس</small>
+          </h3>
+          @for (lesson of section.lessons; track lesson.id; let li = $index) {
+            @if (store.unlocked(c, lesson.id)) {
+              <a class="lesson-row" [routerLink]="['/courses', c.id, 'lessons', lesson.id]"
+                ><span class="lesson-symbol" [class.done]="store.get(c.id, lesson.id)?.completed">{{
+                  store.get(c.id, lesson.id)?.completed ? '✓' : '▷'
+                }}</span>
+                <div>
+                  <b>{{ lesson.title }}</b
+                  ><small>{{
+                    store.get(c.id, lesson.id)?.completed
+                      ? 'مكتمل'
+                      : store.get(c.id, lesson.id)?.position
+                        ? 'قيد المشاهدة'
+                        : 'لم يبدأ بعد'
+                  }}</small>
+                </div>
+                <span class="lesson-duration">{{ time(lesson.durationSec) }}</span
+                ><span>←</span></a
+              >
+            } @else {
+              <div class="lesson-row locked">
+                <span class="lesson-symbol">▣</span>
+                <div>
+                  <b>{{ lesson.title }}</b
+                  ><small>مقفل · أكمل الدرس السابق</small>
+                </div>
+                <span class="lesson-duration">{{ time(lesson.durationSec) }}</span>
+              </div>
+            }
+          }
+        </div>
+      }
+      @if (!lessonsOf(c).length) {
+        <div class="empty">
+          <h3>الدروس قادمة قريبًا</h3>
+          <p>لم تُضف دروس إلى هذه الدورة بعد.</p>
+        </div>
+      }
+    </section>
+    <aside class="progress-panel">
+      <span class="eyebrow">رحلتك في هذه الدورة</span>
+      <div class="progress-circle" [style.--progress]="store.percent(c) + '%'">
+        <div>
+          <b>{{ store.percent(c) }}٪</b><span>اكتمل من الدورة</span>
+        </div>
+      </div>
+      <h3>{{ store.percent(c) === 100 ? 'أحسنت، أكملت الدورة!' : 'كل خطوة تصنع فرقًا' }}</h3>
+      <p>أكمل ٩٠٪ من الدرس لفتح الدرس التالي تلقائيًا.</p>
+      @if (firstAvailable(); as next) {
+        <a class="button full" [routerLink]="['/courses', c.id, 'lessons', next.id]"
+          >{{ store.percent(c) === 100 ? 'مراجعة الدورة' : 'ابدأ التعلّم' }} ←</a
+        >
+      }
+      <div class="privacy-note">◈ تقدمك محفوظ على هذا الجهاز</div>
+    </aside>
+  </div>
+} @else {
+  <app-not-found />
+}

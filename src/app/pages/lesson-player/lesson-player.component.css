@@ -1,0 +1,290 @@
+.player-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 25px;
+}
+.video-shell {
+  background: #131a23;
+  position: relative;
+  border-radius: 13px;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  direction: ltr;
+}
+.video-shell video {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+.video-shell:fullscreen {
+  border-radius: 0;
+  aspect-ratio: auto;
+}
+.video-shell:fullscreen video {
+  flex: 1;
+}
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  background: linear-gradient(transparent, #101720ed);
+  padding: 28px 18px 8px;
+  color: #fff;
+}
+.seek {
+  width: 100%;
+  height: 4px;
+  appearance: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #94d8ff var(--played), #ffffff40 var(--played));
+  cursor: pointer;
+  display: block;
+}
+.seek::-webkit-slider-thumb {
+  appearance: none;
+  width: 11px;
+  height: 11px;
+  background: #b7e5ff;
+  border-radius: 50%;
+}
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.controls-row button {
+  background: transparent;
+  color: white;
+  font-size: 22px;
+  min-width: 35px;
+  height: 36px;
+}
+.controls-spacer {
+  flex: 1;
+}
+.time-display {
+  font-size: 16px;
+  font-family: 'Segoe UI', sans-serif;
+}
+.time-display span {
+  color: #a3bac8;
+}
+.big-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: #ffffffdd;
+  color: #487e9d;
+  font-size: 36px;
+  box-shadow: 0 0 0 9px #ffffff20;
+}
+.video-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #1f2833;
+  color: white;
+  direction: rtl;
+  text-align: center;
+  padding: 20px;
+}
+.video-error > span {
+  font-size: 32px;
+  color: #c8dfed;
+}
+.video-error p {
+  font-size: 16px;
+  color: #a9bfcb;
+  margin: 10px 0 20px;
+}
+.buffering {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border-radius: 5px;
+  background: #17212ea0;
+  color: white;
+  padding: 7px 12px;
+  font-size: 16px;
+}
+.player-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 25px 0 20px;
+}
+.player-title h1 {
+  font-size: 27px;
+}
+.player-title p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.completion-badge {
+  font-size: 15px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #e6f5ed;
+  color: #49967d;
+  white-space: nowrap;
+}
+.lesson-help {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 9px;
+  font-size: 16px;
+  color: #567a8f;
+}
+.lesson-help > span {
+  color: #4a7e9b;
+}
+.next-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+}
+.shortcut-hint {
+  font-size: 14px;
+  color: #567a8f;
+  text-align: center;
+  margin-top: 25px;
+}
+.playlist {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  height: max-content;
+  padding: 18px 0;
+  overflow: hidden;
+}
+.playlist-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+}
+.playlist-heading h3 {
+  font-size: 18px;
+}
+.playlist-heading span {
+  font-size: 14px;
+  color: #557b91;
+}
+.playlist > .progress-track {
+  margin: 12px 18px 20px;
+}
+.playlist h4 {
+  background: #f8fbfd;
+  padding: 13px 18px;
+  font-size: 15px;
+  color: #567a8f;
+  font-weight: 500;
+}
+.playlist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 17px 18px;
+  font-size: 15px;
+  border-inline-start: 3px solid transparent;
+}
+.playlist-item > span {
+  font-size: 20px;
+  color: #537b93;
+}
+.playlist-item small {
+  display: block;
+  font-size: 14px;
+  color: #567a8f;
+  margin-top: 7px;
+}
+.playlist-item.current {
+  background: #eff7fc;
+  border-inline-start-color: var(--primary);
+  color: var(--primary);
+}
+.playlist-item.locked > span {
+  color: #567a8f;
+  font-size: 15px;
+}
+@media (max-width: 1150px) {
+  .player-layout {
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 18px;
+  }
+}
+@media (max-width: 900px) {
+  .player-layout {
+    grid-template-columns: 1fr;
+  }
+  .playlist {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .player-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .player-title h1 {
+    font-size: 25px;
+  }
+  .video-shell {
+    border-radius: 9px;
+    aspect-ratio: 16/11;
+  }
+  .video-controls {
+    padding: 25px 10px 5px;
+  }
+  .big-play {
+    width: 49px;
+    height: 49px;
+    font-size: 28px;
+  }
+  .next-row {
+    gap: 12px;
+  }
+  .next-row .muted {
+    font-size: 15px;
+  }
+  .shortcut-hint {
+    font-size: 13px;
+    line-height: 2;
+  }
+  .lesson-help {
+    font-size: 15px;
+  }
+  .video-error p {
+    font-size: 14px;
+  }
+  .video-error h3 {
+    font-size: 19px;
+  }
+  .video-error .button {
+    min-height: 32px;
+    padding: 5px 12px;
+  }
+  .video-error > span {
+    font-size: 20px;
+  }
+}

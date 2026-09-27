@@ -1,0 +1,152 @@
+@if (catalog.error()) {
+  <div class="empty" role="alert">
+    <h2>تعذّر تحميل المحتوى</h2>
+    <button class="button" (click)="catalog.retry()">إعادة المحاولة</button>
+  </div>
+} @else if (course(); as c) {
+  @if (lesson(); as l) {
+    <a class="back-link" [routerLink]="['/courses', c.id]">→ {{ c.title }}</a>
+    <div class="player-layout">
+      <section>
+        @for (active of [l]; track active.id) {
+          <div
+            class="video-shell"
+            #shell
+            (keydown)="keyboard($event, video)"
+            tabindex="0"
+            aria-label="مشغل الفيديو، مسافة للتشغيل، الأسهم للتقديم والتأخير"
+          >
+            <video
+              #video
+              [src]="active.video"
+              [poster]="c.thumbnail"
+              playsinline
+              preload="metadata"
+              (loadedmetadata)="ready(video, c, active)"
+              (timeupdate)="update(video, c, active)"
+              (pause)="paused.set(true); persist(video, c, active)"
+              (play)="paused.set(false)"
+              (ended)="persist(video, c, active)"
+              (error)="broken.set(true)"
+              (waiting)="buffering.set(true)"
+              (playing)="buffering.set(false)"
+            ></video>
+            @if (broken()) {
+              <div class="video-error" role="alert">
+                <span>!</span>
+                <h3>تعذّر تشغيل الفيديو</h3>
+                <p>قد يكون الملف مفقودًا أو غير مدعوم على جهازك.</p>
+                <button class="button" (click)="retry(video)">إعادة المحاولة</button>
+              </div>
+            } @else {
+              @if (buffering()) {
+                <div class="buffering" role="status">جارٍ تحميل الفيديو…</div>
+              }
+              @if (paused()) {
+                <button class="big-play" (click)="toggle(video)" aria-label="تشغيل الفيديو">
+                  ▷
+                </button>
+              }
+              <div class="video-controls" dir="ltr">
+                <input
+                  class="seek"
+                  type="range"
+                  min="0"
+                  [max]="duration() || active.durationSec"
+                  step="0.1"
+                  [value]="position()"
+                  (input)="seek($event, video)"
+                  aria-label="موضع تشغيل الفيديو"
+                  [attr.aria-valuetext]="time(position())"
+                  [style.--played]="(position() / (duration() || 1)) * 100 + '%'"
+                />
+                <div class="controls-row">
+                  <button
+                    (click)="toggle(video)"
+                    [attr.aria-label]="paused() ? 'تشغيل' : 'إيقاف مؤقت'"
+                  >
+                    {{ paused() ? '▶' : 'Ⅱ' }}</button
+                  ><span class="time-display"
+                    >{{ time(position()) }} <span>/ {{ time(duration()) }}</span></span
+                  >
+                  <div class="controls-spacer"></div>
+                  <button (click)="fullscreen(shell)" aria-label="ملء الشاشة">⛶</button>
+                </div>
+              </div>
+            }
+          </div>
+        }
+        @if (message()) {
+          <p role="status" class="notice">{{ message() }}</p>
+        }
+        <div class="player-title">
+          <div>
+            <span class="eyebrow">الدرس {{ index() + 1 }} من {{ allLessons().length }}</span>
+            <h1>{{ l.title }}</h1>
+            <p>{{ c.instructor }}</p>
+          </div>
+          @if (store.get(c.id, l.id)?.completed) {
+            <span class="completion-badge">✓ اكتمل الدرس</span>
+          }
+        </div>
+        <div class="lesson-help">
+          <span>◈</span>
+          <p>تقدمك يُحفظ تلقائيًا. أكمل ٩٠٪ من الفيديو للانتقال إلى الدرس التالي.</p>
+        </div>
+        <div class="next-row">
+          <span class="muted">{{
+            next() ? 'جاهز للخطوة التالية؟' : 'وصلت إلى آخر درس في الدورة'
+          }}</span>
+          @if (next(); as n) {
+            @if (store.unlocked(c, n.id)) {
+              <a class="button" [routerLink]="['/courses', c.id, 'lessons', n.id]"
+                >الدرس التالي ←</a
+              >
+            } @else {
+              <button class="button" disabled title="أكمل الدرس الحالي أولًا">
+                الدرس التالي ←
+              </button>
+            }
+          } @else {
+            <a class="button" [routerLink]="['/courses', c.id]">العودة إلى الدورة</a>
+          }
+        </div>
+        <div class="shortcut-hint">
+          اختصارات لوحة المفاتيح: المسافة للتشغيل والإيقاف · ← و → للتأخير والتقديم ٥ ثوانٍ
+        </div>
+      </section>
+      <aside class="playlist">
+        <div class="playlist-heading">
+          <h3>محتوى الدورة</h3>
+          <span>{{ store.percent(c) }}٪ مكتمل</span>
+        </div>
+        <div class="progress-track"><span [style.width.%]="store.percent(c)"></span></div>
+        @for (section of c.sections; track section.id) {
+          <h4>{{ section.title }}</h4>
+          @for (item of section.lessons; track item.id) {
+            @if (store.unlocked(c, item.id)) {
+              <a
+                class="playlist-item"
+                [class.current]="item.id === l.id"
+                [routerLink]="['/courses', c.id, 'lessons', item.id]"
+                ><span>{{ store.get(c.id, item.id)?.completed ? '✓' : '▷' }}</span>
+                <div>
+                  {{ item.title }}<small>{{ time(item.durationSec) }}</small>
+                </div></a
+              >
+            } @else {
+              <div class="playlist-item locked">
+                <span>▣</span>
+                <div>{{ item.title }}<small>مقفل</small></div>
+              </div>
+            }
+          }
+        }
+      </aside>
+    </div>
+  } @else {
+    <app-not-found />
+  }
+} @else {
+  <app-not-found />
+}

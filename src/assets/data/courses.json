@@ -1,0 +1,100 @@
+[
+  {
+    "id": "anatomy",
+    "title": "أساسيات التشريح البشري",
+    "instructor": "د. أحمد محمود",
+    "thumbnail": "assets/images/anatomy.jpg",
+    "category": "علم التشريح",
+    "description": "افهم جسم الإنسان، من أصغر عظمة إلى أكثر أجهزته تعقيدًا. رحلة مبسّطة تبني أساسك العلمي بثقة.",
+    "sections": [
+      {
+        "id": "a1",
+        "title": "مدخل إلى علم التشريح",
+        "lessons": [
+          {
+            "id": "a1-l1",
+            "title": "مقدمة في التشريح البشري",
+            "durationSec": 484 ,
+            "video": "assets/videos/anatomy.mp4"
+          },
+          {
+            "id": "a1-l2",
+            "title": "المصطلحات والمستويات التشريحية",
+            "durationSec": 484 ,
+            "video": "assets/videos/anatomy.mp4"
+          }
+        ]
+      },
+      {
+        "id": "a2",
+        "title": "الجهاز الهيكلي والحركة",
+        "lessons": [
+          {
+            "id": "a2-l1",
+            "title": "العظام والهيكل العظمي",
+            "durationSec": 484,
+            "video": "assets/videos/anatomy.mp4"
+          },
+          {
+            "id": "a2-l2",
+            "title": "المفاصل وأنواع الحركة",
+            "durationSec": 484,
+            "video": "assets/videos/anatomy.mp4"
+          },
+          {
+            "id": "a2-l3",
+            "title": "مراجعة الجهاز الهيكلي",
+            "durationSec": 484,
+            "video": "assets/videos/anatomy.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "physiology",
+    "title": "فسيولوجيا جسم الإنسان",
+    "instructor": "د. سارة عبدالله",
+    "thumbnail": "assets/images/physiology.jpg",
+    "category": "علم وظائف الأعضاء",
+    "description": "اكتشف كيف تعمل أجهزة الجسم معًا. تعرّف على القلب والتنفس وآليات الاتزان الداخلي بأسلوب مبسّط.",
+    "sections": [
+      {
+        "id": "p1",
+        "title": "أساسيات وظائف الأعضاء",
+        "lessons": [
+          {
+            "id": "p1-l1",
+            "title": "كيف يعمل جسم الإنسان؟",
+            "durationSec": 501 ,
+            "video": "assets/videos/physiology.mp4"
+          },
+          {
+            "id": "p1-l2",
+            "title": "الخلية والاتزان الداخلي",
+            "durationSec": 501 ,
+            "video": "assets/videos/physiology.mp4"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "title": "القلب والدورة الدموية",
+        "lessons": [
+          {
+            "id": "p2-l1",
+            "title": "القلب: مضخة الحياة",
+            "durationSec": 501 ,
+            "video": "assets/videos/physiology.mp4"
+          },
+          {
+            "id": "p2-l2",
+            "title": "رحلة الدم في الجسم",
+            "durationSec": 501 ,
+            "video": "assets/videos/physiology.mp4"
+          }
+        ]
+      }
+    ]
+  }
+]

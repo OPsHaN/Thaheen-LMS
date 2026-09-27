@@ -1,0 +1,222 @@
+.detail-hero {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+  gap: 35px;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin-bottom: 32px;
+}
+.detail-hero img {
+  border-radius: 12px;
+  width: 100%;
+  min-height: 220px;
+  object-fit: cover;
+}
+.detail-hero p {
+  color: var(--muted);
+  font-size: 17px;
+  margin-top: 10px;
+}
+.purple-pill {
+  background: var(--primary-light);
+}
+.hero-metadata {
+  font-size: 15px;
+  color: #567a8f;
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+}
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 25px;
+}
+.lesson-section {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.lesson-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 18px;
+  background: #fbfdfe;
+  padding: 18px;
+}
+.lesson-section h3 small {
+  margin-inline-start: auto;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.section-number {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 6px 8px;
+}
+.lesson-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid #eff3f6;
+  padding: 17px 19px;
+  font-size: 17px;
+}
+.lesson-row:hover:not(.locked) {
+  background: #f9fdff;
+}
+.lesson-symbol {
+  background: #eef5f9;
+  color: #477e9e;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+.lesson-symbol.done {
+  background: #e5f5ee;
+  color: #54a086;
+}
+.lesson-row small {
+  display: block;
+  font-size: 14px;
+  color: #567a8f;
+  margin-top: 5px;
+}
+.lesson-duration {
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  direction: ltr;
+  color: #567a8f;
+  font-size: 15px;
+}
+.progress-panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  height: max-content;
+  margin-top: 49px;
+}
+.progress-circle {
+  height: 145px;
+  width: 145px;
+  border-radius: 50%;
+  background: conic-gradient(var(--primary) var(--progress), #edf3f7 0);
+  padding: 9px;
+  margin: 24px auto;
+}
+.progress-circle > div {
+  background: #fff;
+  border-radius: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.progress-circle b {
+  font-size: 34px;
+  color: var(--primary);
+}
+.progress-circle span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.progress-panel h3 {
+  font-size: 18px;
+}
+.progress-panel p {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 10px 0 22px;
+}
+.privacy-note {
+  font-size: 14px;
+  color: #567a8f;
+  margin-top: 20px;
+}
+@media (max-width: 1150px) {
+  .detail-layout {
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 18px;
+  }
+  .detail-hero {
+    gap: 20px;
+    padding: 23px;
+  }
+  .detail-hero h1 {
+    font-size: 28px;
+  }
+}
+@media (max-width: 900px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+  .progress-panel {
+    margin-top: 0;
+  }
+  .progress-circle {
+    margin-block: 15px;
+  }
+  .detail-hero {
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero-metadata {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 600px) {
+  .detail-hero {
+    grid-template-columns: 1fr;
+    padding: 22px;
+    gap: 25px;
+  }
+  .detail-hero img {
+    min-height: 0;
+    height: 170px;
+  }
+  .detail-hero h1 {
+    font-size: 27px;
+  }
+  .detail-hero p {
+    font-size: 16px;
+  }
+  .hero-metadata {
+    font-size: 14px;
+  }
+  .lesson-row {
+    padding: 15px 13px;
+    font-size: 15px;
+  }
+  .lesson-section h3 {
+    padding: 14px;
+    font-size: 16px;
+  }
+  .lesson-row b {
+    font-weight: 500;
+  }
+  .lesson-row small {
+    font-size: 13px;
+  }
+  .lesson-symbol {
+    width: 28px;
+    height: 28px;
+  }
+  .lesson-duration {
+    font-size: 14px;
+  }
+}
