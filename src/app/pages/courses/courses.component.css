@@ -9,6 +9,14 @@
   font-size: 17px;
   margin-top: 5px;
 }
+#my-courses{
+align-items: center;
+    gap: 15px;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 20px 21px;
+    border-radius: 12px;
+}
 .spark {
   font-size: 28px;
   color: #1bb3d5;
